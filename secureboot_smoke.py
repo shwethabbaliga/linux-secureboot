@@ -8,6 +8,6 @@ def test_verify_secureboot_enabled():
         ["mokutil","--sb-state"],
         capture_output=True,
         text=True)
-    print(state.stderr,state.stdout)
+    assert (state.returncode == 0 and "enabled" in state.stdout) "Secureboot is disabled"
 
 
