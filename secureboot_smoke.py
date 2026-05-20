@@ -4,6 +4,10 @@ import subprocess
 
 
 def test_verify_secureboot_enabled():
-    print(subprocess.run("mokutil","--sb-state"))
+    state=subprocess.run(
+        ["mokutil","--sb-state"],
+        capture_output=True,
+        text=True)
+    print(state.stderr,state.stdout)
 
 
