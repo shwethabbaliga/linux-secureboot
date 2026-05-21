@@ -18,11 +18,11 @@ def test_secboot_dmesgcheck():
     )
 
     secboot=subprocess.Popen(
-        "grep secureboot",
+        ["grep", "secureboot"],
         stdin=dmesg.stdout,
         stdout=subprocess.PIPE,
         text=True
     )
     
     print(secboot.stdout)
-    
+
