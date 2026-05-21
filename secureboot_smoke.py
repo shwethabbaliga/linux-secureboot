@@ -24,5 +24,9 @@ def test_secboot_dmesgcheck():
         text=True
     )
     
-    print(secboot.stdout)
+    output, error = secboot.communicate()
+
+    print (output, error)
+
+    assert (error == 0 and "enabled" in output), "secureboot enabled string not available in dmesg"
 
