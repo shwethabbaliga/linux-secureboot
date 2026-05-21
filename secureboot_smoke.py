@@ -3,11 +3,26 @@ import pytest
 import subprocess
 
 
-def test_verify_secureboot_enabled():
+def test_secureboot_state():
     state=subprocess.run(
         ["mokutil","--sb-state"],
         capture_output=True,
         text=True)
-    assert (state.returncode == 0 and "enabled" in state.stdout) "Secureboot is disabled"
+    assert (state.returncode == 0 and "enabled" in state.stdout),"Secureboot is disabled"
 
+def test_secboot_dmesgcheck():
+    dmesg=subprocess.Popen(
+        "dmesg",
+        stdout=subprocess.PIPE,
+        text=True
+    )
 
+    secboot=subprocess.Popen(
+        "grep secureboot",
+        stdin=dmesg.stdout,
+        stdout=subprocess.PIPE,
+        text=True
+    )
+    
+    print(secboot.stdout)
+    
