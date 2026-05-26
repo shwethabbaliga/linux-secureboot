@@ -8,6 +8,17 @@ class Secureboot:
             capture_output=True,
             text=True
         )
-        return state.capture_output
+        if state.returncode :
+            return state.stdout
+        else :
+            print ("Mokutil command was not executed")
+            return -1
+
+sb_object=Secureboot()
+
+def test_secureboot_state():
+    value = sb_object.sb_state()
+
+    assert value != -1 and "enabled" in value, "Secureboot is disabled"
 
 
