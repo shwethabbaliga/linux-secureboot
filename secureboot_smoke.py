@@ -1,7 +1,7 @@
 
 import pytest
 import subprocess
-
+import os
 
 def test_secureboot_state():
     state=subprocess.run(
@@ -30,3 +30,6 @@ def test_secboot_dmesgcheck():
 
     assert (error == 0 and "enabled" in output), "secureboot enabled string not available in dmesg"
 
+def test_efi_exposure_sysfs():
+    assert os.path.isdir("/sys/firmware/efi/efivars")
+    
